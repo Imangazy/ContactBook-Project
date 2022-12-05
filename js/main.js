@@ -22,18 +22,18 @@ btnSave.addEventListener("click", async function () {
     phoneNumber: phoneNumber.value,
     photoLink: photoLink.value,
   };
-  
+
   if (
     !obj.name.trim() ||
     !obj.lastName.trim() ||
     !obj.phoneNumber.trim() ||
     !obj.photoLink.trim()
   ) {
-    alert`The field must not be empty`;
+    alert`Поле не должно быть пустым`;
     return;
   }
   if (!+obj.phoneNumber || +obj.name || +obj.lastName) {
-    alert`Fields must be filled in correctly`;
+    alert`Заполните поля правильно`;
     return;
   }
 
@@ -48,35 +48,36 @@ btnSave.addEventListener("click", async function () {
   lastName.value = "";
   phoneNumber.value = "";
   photoLink.value = "";
-  displayInfo();
+  infoFunc();
 });
 
 // Displaying data on a browser page
-displayInfo();
-async function displayInfo() {
+infoFunc();
+async function infoFunc() {
   let info = await fetch(API)
     .then((result) => result.json())
     .catch((error) => console.log(error));
   contentList.innerHTML = "";
-  info.forEach((item) => {
+  info.forEach((elem) => {
     let newInfo = document.createElement("div");
-    newInfo.id = item.id;
+    newInfo.id = elem.id;
     newInfo.innerHTML = `
     <div class="panel-card">
     <div class="card">
-    <img src= ${item.photoLink} class="card-img-top" alt="...">
+    <img src= ${elem.photoLink} class="card-img-top" alt="...">
     <div class="card-body">
-      <h5 class="card-title"><svg class="icons" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indigo" class="bi bi-people-fill" viewBox="0 0 16 16">
-      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-    </svg>${item.lastName}</h5>
-       <h5 class="card-title"><svg class="icons" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indigo" class="bi bi-person-fill" viewBox="0 0 16 16">
+      <h5 class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-person" viewBox="0 0 16 16">
+      <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+      <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+    </svg>${elem.lastName}</h5>
+       <h5 class="card-title"><svg class="icons" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-     </svg>${item.name}</h5>
-     <h6 class="card-title"><svg  class = "icons"xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indigo" class="bi bi-phone-flip" viewBox="0 0 16 16">
-     <path fill-rule="evenodd" d="M11 1H5a1 1 0 0 0-1 1v6a.5.5 0 0 1-1 0V2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a.5.5 0 0 1-1 0V2a1 1 0 0 0-1-1Zm1 13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a.5.5 0 0 0-1 0v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2a.5.5 0 0 0-1 0v2ZM1.713 7.954a.5.5 0 1 0-.419-.908c-.347.16-.654.348-.882.57C.184 7.842 0 8.139 0 8.5c0 .546.408.94.823 1.201.44.278 1.043.51 1.745.696C3.978 10.773 5.898 11 8 11c.099 0 .197 0 .294-.002l-1.148 1.148a.5.5 0 0 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708l1.145 1.144L8 10c-2.04 0-3.87-.221-5.174-.569-.656-.175-1.151-.374-1.47-.575C1.012 8.639 1 8.506 1 8.5c0-.003 0-.059.112-.17.115-.112.31-.242.6-.376Zm12.993-.908a.5.5 0 0 0-.419.908c.292.134.486.264.6.377.113.11.113.166.113.169 0 .003 0 .065-.13.187-.132.122-.352.26-.677.4-.645.28-1.596.523-2.763.687a.5.5 0 0 0 .14.99c1.212-.17 2.26-.43 3.02-.758.38-.164.713-.357.96-.587.246-.229.45-.537.45-.919 0-.362-.184-.66-.412-.883-.228-.223-.535-.411-.882-.571ZM7.5 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1Z"/>
-   </svg>${item.phoneNumber}</h4>
-      <a href="#" class="btn btn-primary btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" id=${item.id}>Edit</a>
-      <a href="#" class="btn btn-primary btn-delete" id=${item.id}>Delete</a>
+     </svg>${elem.name}</h5>
+     <h6 class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="tel" viewBox="0 0 16 16">
+     <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+   </svg>${elem.phoneNumber}</h4>
+      <a href="#" class="btn btn-primary btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" id=${elem.id}>Изменить</a>
+      <a href="#" class="btn btn-primary btn-delete" id=${elem.id}>Удалить</a>
     </div>
   </div>
   </div>`;
@@ -92,7 +93,7 @@ document.addEventListener("click", (e) => {
       method: "DELETE",
     }).then(() => {
       contentList.innerHTML = "";
-      displayInfo();
+      infoFunc();
     });
   }
 });
@@ -144,11 +145,9 @@ async function saveEdit(editedInfo, id) {
     },
     body: JSON.stringify(editedInfo),
   });
-  displayInfo();
+  infoFunc();
   let modal = bootstrap.Modal.getInstance(exampleModal);
   modal.hide();
 }
 
-
-
-
+// latititude 7490
